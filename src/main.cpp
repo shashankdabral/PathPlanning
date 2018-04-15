@@ -260,7 +260,7 @@ int main() {
 		    /* Check if the traffic is within lane range of us and take action */
 		    {
 	                double vx = sensor_fusion[i][3]; //velocity
-	                double vx = sensor_fusion[i][4];
+	                double vy = sensor_fusion[i][4];
 			double check_speed = sqrt(vx*vx + vy*vy);
 			double check_car_s = sensor_fusion[i][5];
 			
