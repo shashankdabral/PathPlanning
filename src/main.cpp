@@ -271,7 +271,7 @@ int main() {
 			 * so we are only calculating for times steps = size of previous points */
                          
 			 check_car_s += ((double)prev_size * .02 *check_speed);
-			 if ((check_car_s > car_s) && ((check_car_s - car_s) < 30));
+			 if ((check_car_s > car_s) && ((check_car_s - car_s) < 30))
 			 /* If any surround car is ahead of ego car and within 30 meters, take action */
 			 {
 			     cout << " traffic d = " << d<< "   ";
