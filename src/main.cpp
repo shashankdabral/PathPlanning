@@ -243,10 +243,25 @@ int main() {
           	vector<double> next_y_vals;
 
 		double dist_inc = 0.5;
+                #ifdef ST_PATH
 		for (int i=0;i<50;i++) {
 		    next_x_vals.push_back(car_x + (dist_inc *i)*cos(deg2rad(car_yaw)));
 		    next_y_vals.push_back(car_y + (dist_inc *i)*sin(deg2rad(car_yaw)));
 		}
+                #endif
+		for (int i=0;i<50;i++) {
+		    double next_s = car_s * (i+1) *dist_inc;
+		    /* Calculalte the next-d assuming we are in the middle lane */
+		    /* Each lane is 4 points wide in Fernet coordinates         */
+		    /* Hence middle lane is d= 6 points                         */                       
+
+		    next_d = 6;
+		    /* Convert from Frenet to cartesian */
+		    vector <double> xy = getXY(next_s,next_d,map_waypoints_s,map_waypoints_x,map_waypoints_y);
+		    next_x_vals.push_back(xy[0]);
+		    next_y_vals.push_back(xy[1]);
+		}
+		
 
           	// TODO: define a path made up of (x,y) points that the car will visit sequentially every .02 seconds
           	msgJson["next_x"] = next_x_vals;
