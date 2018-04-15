@@ -253,6 +253,7 @@ int main() {
 		bool too_close = false;
 
 		/* Iterate through list of sensor fusion elements */
+		ref_vel = 49.5;
 		for (int i=0; i< sensor_fusion.size();i++)
 		{
 		    float d = sensor_fusion[i][6]; 
