@@ -203,7 +203,7 @@ int main() {
 
   /* Define reference lanes */
   int lane = 1; /* 0 is leftt, 1 is middle, 2 is right */ 
-  double ref_vel = 49.0;
+  double ref_vel = 0.0;
 
   h.onMessage([&lane, &ref_vel, &map_waypoints_x,&map_waypoints_y,&map_waypoints_s,&map_waypoints_dx,&map_waypoints_dy](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                      uWS::OpCode opCode) {
