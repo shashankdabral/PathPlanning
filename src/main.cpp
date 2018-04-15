@@ -290,7 +290,7 @@ int main() {
 
                 if (too_close)
 		{
-		    ref_vel -= .224;
+		    ref_vel -= .400; // Brake faster to avoid collision
 		}
 		else if (ref_vel < 49.5)
 		{
