@@ -265,20 +265,19 @@ int main() {
 	                double vy = sensor_fusion[i][4];
 			double check_speed = sqrt(vx*vx + vy*vy);
 			double check_car_s = sensor_fusion[i][5];
-			cout << " traffic d = " << d<< "   ";
-			cout << " traffix s = "<<check_car_s<<endl;
-			cout <<" ego s = " << car_s <<"    ";
 			
 			/* Extrapolalte s to find the possible value of s when our              *
 			 * car starts its trajectory. Remember that we will add previous points *
 			 * so we are only calculating for times steps = size of previous points */
                          
 			 check_car_s += ((double)prev_size * .02 *check_speed);
-			 cout << "extrapolated traffic s =" << check_car_s;
-			 cout << "check_car_s - car_s =" <<check_car_s - car_s <<endl;
 			 if ((check_car_s > car_s) && ((check_car_s - car_s) < 30));
 			 /* If any surround car is ahead of ego car and within 30 meters, take action */
 			 {
+			     cout << " traffic d = " << d<< "   ";
+			     cout <<" ego s = " << car_s <<"    ";
+			     cout << "extrapolated traffic s =" << check_car_s;
+			     cout << "check_car_s - car_s =" <<check_car_s - car_s <<endl;
 			     ref_vel = 29.5;
 			     too_close = true;
 			 }
