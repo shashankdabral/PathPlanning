@@ -202,7 +202,7 @@ int main() {
   }
 
   /* Define reference lanes */
-  int lane =1; /* 0 is leftt, 1 is middle, 2 is right */ 
+  int lane = 1; /* 0 is leftt, 1 is middle, 2 is right */ 
   double ref_vel = 49.0;
 
   h.onMessage([&map_waypoints_x,&map_waypoints_y,&map_waypoints_s,&map_waypoints_dx,&map_waypoints_dy](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
@@ -294,8 +294,8 @@ int main() {
 		    ref_x = previous_path_x [prev_size-1];
 		    ref_y = previous_path_y [prev_size-1];
 
-		    double ref_x_prev = previous_path_x[prev_size-2]
-		    double ref_y_prev = previous_path_y[prev_size-2]
+		    double ref_x_prev = previous_path_x[prev_size-2];
+		    double ref_y_prev = previous_path_y[prev_size-2];
 
 		    ref_yaw  = atan2(ref_y-ref_y_prev,ref_x - ref_x_prev);
 
@@ -308,8 +308,8 @@ int main() {
 
 		/* Create 3 more points for spline at s=30,60 & 90 */
 		vector <double> next_wp0 = getXY(car_s+30,(2 + 4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);
-		vector <double> next_wp0 = getXY(car_s+60,(2 + 4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);
-		vector <double> next_wp0 = getXY(car_s+90,(2 + 4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);
+		vector <double> next_wp1 = getXY(car_s+60,(2 + 4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);
+		vector <double> next_wp2 = getXY(car_s+90,(2 + 4*lane),map_waypoints_s,map_waypoints_x,map_waypoints_y);
 
 		ptsx.push_back(next_wp0[0]);
 		ptsx.push_back(next_wp1[0]);
@@ -333,8 +333,6 @@ int main() {
 		/* Set anchor points on spline */
 		s.set_points(ptsx,ptsy);
 
-		vector <double> next_x_vals;
-		vector <double> next_y_vals;
 		
 		/* Add remaining points from the previous path to the current          */
 		/* previous_path is the remaining points that the car didnt transverse */
