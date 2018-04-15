@@ -250,12 +250,12 @@ int main() {
 		}
                 #endif
 		for (int i=0;i<50;i++) {
-		    double next_s = car_s * (i+1) *dist_inc;
+		    double next_s = car_s + ((i+1) *dist_inc);
 		    /* Calculalte the next-d assuming we are in the middle lane */
 		    /* Each lane is 4 points wide in Fernet coordinates         */
 		    /* Hence middle lane is d= 6 points                         */                       
 
-		    next_d = 6;
+		    double next_d = 6;
 		    /* Convert from Frenet to cartesian */
 		    vector <double> xy = getXY(next_s,next_d,map_waypoints_s,map_waypoints_x,map_waypoints_y);
 		    next_x_vals.push_back(xy[0]);
