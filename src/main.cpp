@@ -349,7 +349,7 @@ int main() {
 		double x_add_on = 0;
 
 		/* Populate remaining points that were not covered by left over previous path */
-		for (int i=1;i<= 50 - previous_path.x_size();i++) {
+		for (int i=1; i<= (50 - previous_path_x.size());i++) {
 		    double N = (target_dist/(0.02 *ref_vel/2.24));  // Step is target_dist / (time * velocity)
 		    double x_point = x_add_on + (target_x)/N;
 		    double y_point = s(x_point);
