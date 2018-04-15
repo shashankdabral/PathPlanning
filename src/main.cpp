@@ -254,6 +254,7 @@ int main() {
 
 		/* Iterate through list of sensor fusion elements */
 		ref_vel = 49.5;
+		cout << "Checking for snesor fusion "<<endl;
 		for (int i=0; i< sensor_fusion.size();i++)
 		{
 		    float d = sensor_fusion[i][6]; 
@@ -264,6 +265,7 @@ int main() {
 	                double vy = sensor_fusion[i][4];
 			double check_speed = sqrt(vx*vx + vy*vy);
 			double check_car_s = sensor_fusion[i][5];
+			cout << " traffic d = " << d<<endl;
 			
 			/* Extrapolalte s to find the possible value of s when our              *
 			 * car starts its trajectory. Remember that we will add previous points *
@@ -274,6 +276,7 @@ int main() {
 			 /* If any surround car is ahead of ego car and within 30 meters, take action */
 			 {
 			     ref_vel = 29.5;
+			     too_close = true;
 			 }
 
 
