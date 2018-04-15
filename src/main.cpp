@@ -275,6 +275,7 @@ int main() {
                          
 			 check_car_s += ((double)prev_size * .02 *check_speed);
 			 cout << "extrapolated traffic s =" << check_car_s;
+			 cout << "check_car_s - car_s =" <<check_car_s - car_s <<endl;
 			 if ((check_car_s > car_s) && ((check_car_s - car_s) < 30));
 			 /* If any surround car is ahead of ego car and within 30 meters, take action */
 			 {
