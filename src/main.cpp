@@ -253,7 +253,6 @@ int main() {
 		bool too_close = false;
 
 		/* Iterate through list of sensor fusion elements */
-		ref_vel = 49.5;
 		cout << "Checking for snesor fusion "<<endl;
 		for (int i=0; i< sensor_fusion.size();i++)
 		{
@@ -278,7 +277,6 @@ int main() {
 			     cout <<" ego s = " << car_s <<"    ";
 			     cout << "extrapolated traffic s =" << check_car_s;
 			     cout << "check_car_s - car_s =" <<check_car_s - car_s <<endl;
-			     ref_vel = 29.5;
 			     too_close = true;
 			 }
 
@@ -287,7 +285,17 @@ int main() {
 
 		} //for i (sensor fusion)
 
+		/* if the flag is set, 'slowly slow down' :D */
+		/* Otherwise if below ref, slowy speed up    */
 
+                if (too_close)
+		{
+		    ref_vel -= .224;
+		}
+		else if (ref_vel < 49.5)
+		{
+		    ref_vel += .224;
+		}
 
           	vector<double> next_x_vals;
           	vector<double> next_y_vals;
