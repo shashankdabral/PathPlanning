@@ -223,9 +223,9 @@ int main() {
         right_lane = 1;
     }
     else if (lane ==1)
+    {
         left_lane = 0;
         right_lane = 2;
-    {
     }
     else if (lane ==2)
     {
@@ -273,6 +273,8 @@ int main() {
 		    car_s = end_path_s;
 		}
 		bool too_close = false;
+		bool left_too_close = false;
+		bool right_too_close = false;
 
 		/* Iterate through list of sensor fusion elements */
 		cout << "Checking for sensor fusion "<<endl;
@@ -295,15 +297,68 @@ int main() {
 			 if ((check_car_s > car_s) && ((check_car_s - car_s) < 30))
 			 /* If any surround car is ahead of ego car and within 30 meters, take action */
 			 {
-			     cout << " traffic d = " << d<< "   ";
-			     cout <<" ego s = " << car_s <<"    ";
-			     cout << "extrapolated traffic s =" << check_car_s;
+			     //cout << " traffic d = " << d<< "   ";
+			     //cout <<" ego s = " << car_s <<"    ";
+			     //cout << "extrapolated traffic s =" << check_car_s;
 			     cout << "check_car_s - car_s =" <<check_car_s - car_s <<endl;
 			     too_close = true;
 			 }
 
 
 		    } // if d
+
+		    /* Repeat the same calculation for the lane left and right of the car */
+		    /* But only if the car is not in the left most or the right most lane */
+		    /* Use the condition left/right_lane == -1 to check this              */
+		    /* We may also want to increase the distance (s) that we check for    */
+		    /* Since there is no point in changing lanes if the next lane has a   */
+		    /* car at the same distance that can block us                         */
+
+		    if (left_lane != -1) {
+                        if (d <(2+4*left_lane +2) && (d > 2+4*left_lane -2)) 
+		        /* Check if the traffic is within lane range of us and take action */
+		        {
+	                    double vx = sensor_fusion[i][3]; //velocity
+	                    double vy = sensor_fusion[i][4];
+			    double check_speed = sqrt(vx*vx + vy*vy);
+			    double check_car_s = sensor_fusion[i][5];
+			
+			    /* Extrapolalte s to find the possible value of s when our              *
+			     * car starts its trajectory. Remember that we will add previous points *
+			     * so we are only calculating for times steps = size of previous points */
+                         
+			     check_car_s += ((double)prev_size * .02 *check_speed);
+			     if ((check_car_s > car_s) && ((check_car_s - car_s) < 40))
+			     /* If any surround car is ahead of ego car and within 40 meters, take action */
+			     {
+			         left_too_close = true;
+			     }
+
+		        } // if d
+		    } // if left_lane
+
+		    if (right_lane != -1) {
+                        if (d <(2+4*right_lane +2) && (d > 2+4*right_lane -2)) 
+		        /* Check if the traffic is within lane range of us and take action */
+		        {
+	                    double vx = sensor_fusion[i][3]; //velocity
+	                    double vy = sensor_fusion[i][4];
+			    double check_speed = sqrt(vx*vx + vy*vy);
+			    double check_car_s = sensor_fusion[i][5];
+			
+			    /* Extrapolalte s to find the possible value of s when our              *
+			     * car starts its trajectory. Remember that we will add previous points *
+			     * so we are only calculating for times steps = size of previous points */
+                         
+			     check_car_s += ((double)prev_size * .02 *check_speed);
+			     if ((check_car_s > car_s) && ((check_car_s - car_s) < 40))
+			     /* If any surround car is ahead of ego car and within 40 meters, take action */
+			     {
+			         right_too_close = true;
+			     }
+
+		        } // if d
+		    } // if right_lane
 
 		} //for i (sensor fusion)
 
@@ -312,9 +367,13 @@ int main() {
 
                 if (too_close)
 		{
-	            if (lane >0) 
+	            if (left_lane != -1) 
 		    {
-		        lane = 0;
+		        lane = left_lane;
+		    }
+	            if (right_lane != -1) 
+		    {
+		        lane = right_lane;
 		    }
 		    else 
 		    {
