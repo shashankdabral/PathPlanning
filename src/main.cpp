@@ -203,6 +203,7 @@ int main() {
 
   /* Define reference lanes */
   int lane = 1; /* 0 is leftt, 1 is middle, 2 is right */ 
+  
   double ref_vel = 0.0;
 
   h.onMessage([&lane, &ref_vel, &map_waypoints_x,&map_waypoints_y,&map_waypoints_s,&map_waypoints_dx,&map_waypoints_dy](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
@@ -212,6 +213,27 @@ int main() {
     // The 2 signifies a websocket event
     //auto sdata = string(data).substr(0, length);
     //cout << sdata << endl;
+
+    int left_lane ;
+    int right_lane ;
+
+    if (lane == 0 )
+    {
+        left_lane = -1;
+        right_lane = 1;
+    }
+    else if (lane ==1)
+        left_lane = 0;
+        right_lane = 2;
+    {
+    }
+    else if (lane ==2)
+    {
+        left_lane = 1;
+        right_lane = -1;
+    }
+
+    cout <<"lane = "<<lane<<"  left lane ="<<left_lane<<"right lane"<<right_lane<<endl;
     if (length && length > 2 && data[0] == '4' && data[1] == '2') {
 
       auto s = hasData(data);
@@ -253,7 +275,7 @@ int main() {
 		bool too_close = false;
 
 		/* Iterate through list of sensor fusion elements */
-		cout << "Checking for snesor fusion "<<endl;
+		cout << "Checking for sensor fusion "<<endl;
 		for (int i=0; i< sensor_fusion.size();i++)
 		{
 		    float d = sensor_fusion[i][6]; 
@@ -290,7 +312,14 @@ int main() {
 
                 if (too_close)
 		{
-		    ref_vel -= .400; // Brake faster to avoid collision
+	            if (lane >0) 
+		    {
+		        lane = 0;
+		    }
+		    else 
+		    {
+		        ref_vel -= .400; // Brake faster to avoid collision
+		    }
 		}
 		else if (ref_vel < 49.5)
 		{
