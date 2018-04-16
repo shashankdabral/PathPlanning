@@ -367,11 +367,11 @@ int main() {
 
                 if (too_close)
 		{
-	            if (left_lane != -1) 
+	            if ((left_lane != -1) && (!left_too_close)) 
 		    {
 		        lane = left_lane;
 		    }
-	            if (right_lane != -1) 
+		    else if ((right_lane != -1) && (!right_too_close)) 
 		    {
 		        lane = right_lane;
 		    }
