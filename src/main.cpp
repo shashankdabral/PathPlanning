@@ -233,7 +233,7 @@ int main() {
         right_lane = -1;
     }
 
-    cout <<"lane = "<<lane<<"  left lane ="<<left_lane<<"right lane"<<right_lane<<endl;
+    //cout <<"lane = "<<lane<<"  left lane ="<<left_lane<<"right lane"<<right_lane<<endl;
     if (length && length > 2 && data[0] == '4' && data[1] == '2') {
 
       auto s = hasData(data);
@@ -300,7 +300,7 @@ int main() {
 			     //cout << " traffic d = " << d<< "   ";
 			     //cout <<" ego s = " << car_s <<"    ";
 			     //cout << "extrapolated traffic s =" << check_car_s;
-			     cout << "check_car_s - car_s =" <<check_car_s - car_s <<endl;
+			     //cout << "check_car_s - car_s =" <<check_car_s - car_s <<endl;
 			     too_close = true;
 			 }
 
